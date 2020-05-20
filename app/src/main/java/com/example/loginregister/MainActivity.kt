@@ -1,30 +1,30 @@
 package com.example.loginregister
 
 import android.os.Bundle
-import android.widget.TextView
+import android.util.Log
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import kotlinx.android.synthetic.main.activity_main.*
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var mAuth: FirebaseAuth
-    private lateinit var txt: TextView
+    private lateinit var nav: NavController
+    lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        txt = testing
-        mAuth = FirebaseAuth.getInstance()
 
-    }
 
-    override fun onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        var currentUser = mAuth.currentUser
-        txt.text = currentUser.toString()
+
+        auth = Firebase.auth
+        Log.d("user", "${auth.currentUser.toString()}")
+
+        nav = Navigation.findNavController(this, R.id.fragment_nav)
 
     }
 }

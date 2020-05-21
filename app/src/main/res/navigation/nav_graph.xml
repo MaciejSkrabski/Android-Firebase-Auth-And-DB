@@ -8,16 +8,16 @@
     <fragment
         android:id="@+id/books"
         android:name="com.example.loginregister.Books"
-        android:label="fragment_books"
+        android:label="Książki"
         tools:layout="@layout/fragment_books" />
     <fragment
         android:id="@+id/games"
         android:name="com.example.loginregister.Games"
-        android:label="fragment_games"
+        android:label="Gry"
         tools:layout="@layout/fragment_games" />
     <fragment
         android:id="@+id/films"
         android:name="com.example.loginregister.Films"
-        android:label="fragment_films"
+        android:label="Filmy"
         tools:layout="@layout/fragment_films" />
 </navigation>

@@ -1,32 +1,62 @@
 package com.example.loginregister
 
+import android.content.Context
 import android.os.Bundle
+import android.util.AttributeSet
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+import com.google.firebase.database.snapshot.ChildrenNode
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+val childEventListener = object : ChildEventListener {
+    override fun onChildAdded(dataSnapshot: DataSnapshot, previousChildName: String?) {
+        Log.d("TAG", "onChildAdded:" + dataSnapshot.key!!)
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Games.newInstance] factory method to
- * create an instance of this fragment.
- */
-class Games : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+        // A new comment has been added, add it to the displayed list
+        val comment = dataSnapshot.getValue<>()
+
+        // ...
+    }
+
+
+
+    class Games : Fragment() {
+        val db = FirebaseDatabase.getInstance()
+        val databaseReference = db.getReference("rozrywka/2/games");
+
+// ...
+
+    val authlistener = FirebaseAuth.AuthStateListener() {
+        fun onAuthStateChanged(firebaseAuth: FirebaseAuth) {
+            val user = firebaseAuth.currentUser;
+            Log.d("user", "$user")
+            if (user != null) {
+                // User is signed in
+
+            } else {
+                // User is signed out
+                Log.e("USER SIGNED OUT", "USER SIGNED OUT")
+            }
+            // ...
+        }
+    }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
+        databaseReference.addListenerForSingleValueEvent()
+        Log.d("GamesHere", "$authlistener")
+        Log.d("games dbinstance", "$db")
+        Log.d("databaseReference", "$databaseReference")
+
+
+
     }
 
     override fun onCreateView(
@@ -37,23 +67,39 @@ class Games : Fragment() {
         return inflater.inflate(R.layout.fragment_games, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Games.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Games().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+}
+
+class DataSource {
+
+    companion object{
+
+        fun createDataSet(){
+
+
+            var databaseMifkada = FirebaseDatabase.getInstance().getReference("mifkada")
+
+
+
+            val postListener = object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if(dataSnapshot!!.exists()){
+                        list.clear()
+                        for (e in dataSnapshot.children){
+                            val post = e.getValue(BlogPost::class.java)
+                            list.add(post!!)
+                        }
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Getting Post failed, log a message
+                    Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
                 }
             }
+
+            databaseMifkada.addValueEventListener(postListener)
+
+            return list
+        }
     }
 }

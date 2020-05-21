@@ -11,6 +11,7 @@
         style="@style/FirebaseUI.TextInputEditText.NameField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
         android:hint="email@example.com"
         app:layout_constraintBottom_toTopOf="@+id/password"
         app:layout_constraintTop_toTopOf="parent"

@@ -36,12 +36,13 @@ class MainActivity : AppCompatActivity() {
         log = login
 
 
-        reg.setOnClickListener { Log.d("inputs", "${mail.text}, ${pwd.text}") }
+        reg.setOnClickListener { Log.d("inputs", "${mail.text}, ${pwd.text}")
+        createAccount(mail.text.toString().trim(), pwd.text.toString())
+        }
         log.setOnClickListener {
             Log.d("login", "try to start login activity")
             val intent = Intent (this, LoginActivity::class.java)
             startActivity(intent)
-
         }
     }
 
@@ -63,7 +64,7 @@ class MainActivity : AppCompatActivity() {
                     //updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.
-                    Log.w("createuser", "createUserWithEmail:failure", task.exception)
+                    Log.d("createuser", "createUserWithEmail:failure", task.exception)
                     Toast.makeText(baseContext, "Authentication failed.",
                         Toast.LENGTH_SHORT).show()
                     //updateUI(null)
@@ -73,24 +74,5 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-    fun login(email:String, password:String) {
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d("login", "signInWithEmail:success")
-                    val user = auth.currentUser
-                    //updateUI(user)
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w("login", "signInWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
-                    //updateUI(null)
-                    // ...
-                }
 
-                // ...
-            }
-    }
 }

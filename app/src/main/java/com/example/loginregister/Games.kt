@@ -12,15 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.database.snapshot.ChildrenNode
 
-val childEventListener = object : ChildEventListener {
-    override fun onChildAdded(dataSnapshot: DataSnapshot, previousChildName: String?) {
-        Log.d("TAG", "onChildAdded:" + dataSnapshot.key!!)
 
-        // A new comment has been added, add it to the displayed list
-        val comment = dataSnapshot.getValue<>()
-
-        // ...
-    }
 
 
 
@@ -49,9 +41,8 @@ val childEventListener = object : ChildEventListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        databaseReference.addListenerForSingleValueEvent()
         Log.d("GamesHere", "$authlistener")
+
         Log.d("games dbinstance", "$db")
         Log.d("databaseReference", "$databaseReference")
 
@@ -69,37 +60,3 @@ val childEventListener = object : ChildEventListener {
 
 }
 
-class DataSource {
-
-    companion object{
-
-        fun createDataSet(){
-
-
-            var databaseMifkada = FirebaseDatabase.getInstance().getReference("mifkada")
-
-
-
-            val postListener = object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    if(dataSnapshot!!.exists()){
-                        list.clear()
-                        for (e in dataSnapshot.children){
-                            val post = e.getValue(BlogPost::class.java)
-                            list.add(post!!)
-                        }
-                    }
-                }
-
-                override fun onCancelled(databaseError: DatabaseError) {
-                    // Getting Post failed, log a message
-                    Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
-                }
-            }
-
-            databaseMifkada.addValueEventListener(postListener)
-
-            return list
-        }
-    }
-}

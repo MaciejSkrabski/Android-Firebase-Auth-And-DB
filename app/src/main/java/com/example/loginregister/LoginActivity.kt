@@ -60,7 +60,9 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(baseContext, "Authentication successful.",
                         Toast.LENGTH_SHORT).show()
                     Log.d("logintheman", "signInWithEmail:success")
-                    val user = auth.currentUser
+                    Log.d("logged in", "try to start login activity")
+                    val intent = Intent (this, FragmentNavigationActivity::class.java)
+                    startActivity(intent)
                     //updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.

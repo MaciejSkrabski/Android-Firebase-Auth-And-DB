@@ -4,52 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".LoginActivity">
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/email"
+        android:id="@+id/emaill"
         style="@style/FirebaseUI.TextInputEditText.NameField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:hint="email@example.com"
-        app:layout_constraintBottom_toTopOf="@+id/password"
+        app:layout_constraintBottom_toTopOf="@+id/passwordl"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
         tools:layout_editor_absoluteX="0dp" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/password"
+        android:id="@+id/passwordl"
         style="@style/FirebaseUI.TextInputEditText.PasswordField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password123"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/register"
-        app:layout_constraintTop_toBottomOf="@+id/email"
+        app:layout_constraintBottom_toTopOf="@+id/loginl"
+        app:layout_constraintTop_toBottomOf="@+id/emaill"
         app:layout_constraintVertical_bias="0.813"
         tools:layout_editor_absoluteX="-16dp" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/register"
+        android:id="@+id/loginl"
         style="@style/FirebaseUI.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Register"
+        android:text="Log in"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password"
+        app:layout_constraintTop_toBottomOf="@+id/passwordl"
         tools:layout_editor_absoluteX="-29dp" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:layout_marginTop="10dp"
-        android:text="Already have an account?"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
